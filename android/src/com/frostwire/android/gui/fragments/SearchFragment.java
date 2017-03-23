@@ -174,12 +174,9 @@ public final class SearchFragment extends AbstractFragment implements
 
         title.setOnClickListener(getHeaderClickListener());
 
-        if (filterButton == null) {
-            ImageButton filterButton = (ImageButton) header.findViewById(R.id.view_search_header_search_filter_button);
-            TextView filterCounter = (TextView) header.findViewById(R.id.view_search_header_search_filter_counter);
-            this.filterButton = new FilterToolbarButton(filterButton, filterCounter);
-        }
-
+        ImageButton filterButtonIcon = (ImageButton) header.findViewById(R.id.view_search_header_search_filter_button);
+        TextView filterCounter = (TextView) header.findViewById(R.id.view_search_header_search_filter_counter);
+        filterButton = new FilterToolbarButton(filterButtonIcon, filterCounter);
         filterButton.setVisible(adapter != null && adapter.getCount() > 0);
         return header;
     }
