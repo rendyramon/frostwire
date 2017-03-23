@@ -36,16 +36,19 @@
         android:id="@+id/view_search_header_search_filter_counter"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_gravity="top"
+        android:gravity="center_vertical"
+        android:text="12"
         android:textColor="@color/basic_white"
-        android:textSize="@dimen/text_x_small"/>
+        android:textSize="@dimen/text_small" />
 
     <ImageButton
         android:id="@+id/view_search_header_search_filter_button"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:background="@drawable/action_bar_search_filter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        android:background="@color/transparent"
         android:contentDescription="@null"
         android:scaleType="fitCenter"
-        android:src="@drawable/add_transfer"/>
+        android:src="@drawable/action_bar_search_filter" />
 </LinearLayout>
