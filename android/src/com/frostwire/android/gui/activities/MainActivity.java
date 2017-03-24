@@ -42,7 +42,6 @@ import android.util.SparseArray;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import com.andrew.apollo.IApolloService;
 import com.andrew.apollo.MusicPlaybackService;
@@ -74,6 +73,7 @@ import com.frostwire.android.gui.util.DangerousPermissionsChecker;
 import com.frostwire.android.gui.util.UIUtils;
 import com.frostwire.android.gui.views.AbstractActivity;
 import com.frostwire.android.gui.views.AbstractDialog.OnDialogClickListener;
+import com.frostwire.android.gui.views.KeywordFilterDrawerView;
 import com.frostwire.android.gui.views.MiniPlayerView;
 import com.frostwire.android.gui.views.TimerService;
 import com.frostwire.android.gui.views.TimerSubscription;
@@ -613,7 +613,8 @@ public class MainActivity extends AbstractActivity implements ConfigurationUpdat
 
     private void setupFragments() {
         search = (SearchFragment) getFragmentManager().findFragmentById(R.id.activity_main_fragment_search);
-        search.connectDrawerLayoutFilterView((DrawerLayout) findView(R.id.activity_main_drawer_layout), (LinearLayout) findView(R.id.activity_main_filter_view));
+        //search.connectDrawerLayoutFilterView((DrawerLayout) findView(R.id.activity_main_drawer_layout), findView(R.id.activity_main_keyword_filter_drawer_view));
+        search.connectDrawerLayoutFilterView((DrawerLayout) findView(R.id.activity_main_drawer_layout), findView(R.id.view_drawer_search_filters_main_container));
         library = (BrowsePeerFragment) getFragmentManager().findFragmentById(R.id.activity_main_fragment_browse_peer);
         transfers = (TransfersFragment) getFragmentManager().findFragmentById(R.id.activity_main_fragment_transfers);
     }
@@ -626,7 +627,6 @@ public class MainActivity extends AbstractActivity implements ConfigurationUpdat
 
     private void setupInitialFragment(Bundle savedInstanceState) {
         Fragment fragment = null;
-
         if (savedInstanceState != null) {
             fragment = getFragmentManager().getFragment(savedInstanceState, CURRENT_FRAGMENT_KEY);
             restoreFragmentsStack(savedInstanceState);
@@ -635,7 +635,6 @@ public class MainActivity extends AbstractActivity implements ConfigurationUpdat
             fragment = search;
             setCheckedItem(R.id.menu_main_search);
         }
-
         switchContent(fragment);
     }
 

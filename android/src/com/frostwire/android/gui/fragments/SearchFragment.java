@@ -63,6 +63,7 @@ import com.frostwire.android.gui.util.UIUtils;
 import com.frostwire.android.gui.views.AbstractDialog.OnDialogClickListener;
 import com.frostwire.android.gui.views.AbstractFragment;
 import com.frostwire.android.gui.views.ClickAdapter;
+import com.frostwire.android.gui.views.KeywordFilterDrawerView;
 import com.frostwire.android.gui.views.PromotionsView;
 import com.frostwire.android.gui.views.RichNotification;
 import com.frostwire.android.gui.views.RichNotificationActionLink;
@@ -126,7 +127,8 @@ public final class SearchFragment extends AbstractFragment implements
     private final SparseArray<Byte> toTheLeftOf = new SparseArray<>(6);
     private final Map<Integer, KeywordDetector> keywordDetectors;
     private DrawerLayout drawerLayout;
-    private LinearLayout filterViewLayout;
+    private KeywordFilterDrawerView keywordFilterDrawerView;
+    private LinearLayout filterLinearLayout;
     private OnClickListener headerClickListener;
 
     public SearchFragment() {
@@ -647,9 +649,10 @@ public final class SearchFragment extends AbstractFragment implements
         }
     }
 
-    public void connectDrawerLayoutFilterView(DrawerLayout drawerLayout, LinearLayout filterViewLayout) {
+    public void connectDrawerLayoutFilterView(DrawerLayout drawerLayout, View filterView) {
         this.drawerLayout = drawerLayout;
-        this.filterViewLayout = filterViewLayout;
+        //keywordFilterDrawerView = (KeywordFilterDrawerView) filterView;
+        filterLinearLayout = (LinearLayout) filterView;
     }
 
     private static class SearchInputOnSearchListener implements SearchInputView.OnSearchListener {
@@ -813,8 +816,11 @@ public final class SearchFragment extends AbstractFragment implements
             imageButton.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (drawerLayout != null && filterViewLayout != null) {
-                        drawerLayout.openDrawer(filterViewLayout);
+                    if (drawerLayout != null && keywordFilterDrawerView != null) {
+                        drawerLayout.openDrawer(keywordFilterDrawerView);
+                    }
+                    if (drawerLayout != null && filterLinearLayout != null) {
+                        drawerLayout.openDrawer(filterLinearLayout);
                     }
                 }
             });
@@ -853,8 +859,11 @@ public final class SearchFragment extends AbstractFragment implements
                 uiRunnable.run();
             } else {
                 getActivity().runOnUiThread(uiRunnable);
+                LOG.info("onHistogramUpdate: feature:" + feature.name() + " fileType:" + adapter.getFileType());
+                for (Map.Entry<String, Integer> keyword : histogram) {
+                    LOG.info(keyword.getKey() + ":" + keyword.getValue());
+                }
             }
-            // TODO: notify the drawer view of the histogram data
         }
 
         @Override
@@ -870,7 +879,8 @@ public final class SearchFragment extends AbstractFragment implements
         public void reset(boolean hide) {
             setVisible(!hide);
             tagCounter = 0;
-            drawerLayout.closeDrawer(filterViewLayout);
+            //drawerLayout.closeDrawer(keywordFilterDrawerView);
+            drawerLayout.closeDrawer(filterLinearLayout);
             LOG.info("FilterButton.reset(hide=" + hide + ")");
         }
 

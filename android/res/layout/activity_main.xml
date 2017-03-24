@@ -92,21 +92,15 @@
                 android:visibility="gone" />
         </android.support.design.widget.NavigationView>
 
-        <!-- TEMP CODE, THIS SHALL MOVE TO ITS OWN MORE COMPLEX VIEW FILE -->
-        <LinearLayout
-            android:id="@+id/activity_main_filter_view"
+        <include layout="@layout/view_drawer_search_filters"/>
+
+        <!--
+        <com.frostwire.android.gui.views.KeywordFilterDrawerView
+            android:id="@+id/activity_main_keyword_filter_drawer_view"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_gravity="end"
-            android:orientation="vertical"
-            android:fitsSystemWindows="true"
-            android:background="@color/white"
-            >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Hello Filter Drawer View"
-                android:layout_gravity="top|center_horizontal"/>
-        </LinearLayout>
+            android:layout_gravity="end"/>
+        -->
+
     </android.support.v4.widget.DrawerLayout>
 </LinearLayout>
